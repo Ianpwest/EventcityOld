@@ -1,0 +1,12 @@
+﻿
+@{
+    ViewBag.Title = "Home Page";
+}
+
+<h2>@ViewBag.Message</h2>
+
+<div style="width:500px; height:800px; overflow:auto;">
+<p>@Html.Partial("NailVentPartialView", (MVCEventBench.Classes.NailVent)ViewBag.myTestNailVent)
+   @Html.Partial("NailVentPartialView", (MVCEventBench.Classes.NailVent)ViewBag.myTO)
+</p>
+</div>

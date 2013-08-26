@@ -1,0 +1,95 @@
+﻿<div id="divMain" style="width:100%; height:75%">
+    <table id="tableEvents">
+       <tr>
+        <td style="padding-right:20px">
+            <h1 style="text-align:center;">Today</h1>
+            <br />
+            <div style="overflow:hidden; width:330px; height:540px">
+                <div id="divToday" style="width:350px; height:540px; overflow:auto">
+                    <table>
+                        @{  List<MVCEventBench.Classes.NailVent> listNailVentToday = ViewBag.listNailVentToday;
+                            foreach (MVCEventBench.Classes.NailVent nv in listNailVentToday)
+                            {
+                                for (int i = 0; i < 10; i++)
+                                {
+                                    @Html.Partial("NailVentPartialView", nv)
+                                }
+                            }
+                        }
+                    </table>
+                </div>
+             </div>
+        </td>
+        <td style="padding-right:20px">
+            <h1 style="text-align:center">Next Week</h1>
+            <br />
+            <div style="overflow:hidden; width:330px; height:540px">
+                 <div id="divWeek" style="width:350px; height:540px; overflow:auto">
+                     <table>
+                       @{  List<MVCEventBench.Classes.NailVent> listNailVentWeek = ViewBag.listNailVentWeek;
+                           foreach (MVCEventBench.Classes.NailVent nv in listNailVentWeek)
+                           {
+                               for (int i = 0; i < 10; i++)
+                               {
+                                    @Html.Partial("NailVentPartialView", nv)
+                               }
+                           }
+                        }
+                     </table>
+                 </div>
+             </div>
+        </td>
+        <td style="padding-right:20px">
+            <h1 style="text-align:center">This Month</h1>
+            <br />
+            <div style="overflow:hidden; width:330px; height:540px">
+                 <div id="divMonth" style="width:350px; height:540px; overflow:auto">
+                     <table>
+                       @{  List<MVCEventBench.Classes.NailVent> listNailVentMonth = ViewBag.listNailVentMonth;
+                           foreach (MVCEventBench.Classes.NailVent nv in listNailVentMonth)
+                           {
+                               @Html.Partial("NailVentPartialView", nv)
+                           }
+                        }
+                     </table>
+                 </div>
+            </div>
+        </td>
+        </tr>
+    </table>
+</div>
+
+<script type="text/javascript">
+//Bam this works
+    $(document).ready(function () {
+        $('.BackgroundImage img').each(function () // Loop over each img using the .each() method
+        {
+            $(this).qtip({
+                content: {
+                    text: 'Loading...',
+                    position:
+                    {
+                        at: 'top right'
+                    },
+                    hide: {
+                        fixed: true
+                    },
+                    ajax: {
+                        type: "Post",
+                        datatype: 'json',
+                        data: "strEventGUID=" + $(this).attr('lang'),
+                        once: false,
+                        url: "/Event/DetailsAjax",
+                        success: function (data) {
+                            $('.BackgroundImage img').qtip('option', 'content.text', data.message);
+                            $('.BackgroundImage img').qtip('option', 'position.at', 'top right');
+                            $('.BackgroundImage img').qtip('option', 'hide.fixed', true);
+                            $('.BackgroundImage img').qtip('option', 'position.viewport', $(window));
+                        }
+                    }
+                }
+            });
+        });
+    });
+</script>
+

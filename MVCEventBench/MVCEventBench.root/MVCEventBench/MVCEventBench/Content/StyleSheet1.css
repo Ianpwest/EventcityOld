@@ -1,0 +1,80 @@
+﻿body{
+	
+background-image: linear-gradient(bottom, rgb(51,255,0) 26%, rgb(139,247,131) 43%, rgb(252,255,252) 87%);
+background-image: -o-linear-gradient(bottom, rgb(51,255,0) 26%, rgb(139,247,131) 43%, rgb(252,255,252) 87%);
+background-image: -moz-linear-gradient(bottom, rgb(51,255,0) 26%, rgb(139,247,131) 43%, rgb(252,255,252) 87%);
+background-image: -webkit-linear-gradient(bottom, rgb(51,255,0) 26%, rgb(139,247,131) 43%, rgb(252,255,252) 87%);
+background-image: -ms-linear-gradient(bottom, rgb(51,255,0) 26%, rgb(139,247,131) 43%, rgb(252,255,252) 87%);
+
+background-image: -webkit-gradient(
+	linear,
+	left bottom,
+	left top,
+	color-stop(0.26, rgb(51,255,0)),
+	color-stop(0.43, rgb(139,247,131)),
+	color-stop(0.87, rgb(252,255,252))
+	);
+}
+
+div{
+	
+}
+
+div.divPad
+{
+	position:relative;
+	height:100%;
+	width:15%;
+	float:left;
+}
+
+div#divEventweek{
+	background-image:url('cute_kitty.jpg');
+}
+
+div#divHeader{
+	background-color:aqua;
+	outline:black solid thin;
+	background-image:url('bukiki-party.gif');
+	background-repeat:no-repeat;
+	background-position:right center;
+}
+
+div#divFeatured{
+	background-color:lime;
+	border-left:thin black solid;
+	border-right:thin black solid;
+}
+
+div#divMainEvents
+{
+	position:relative;
+	height:100%;
+	width:70%;
+	float:left;
+}
+
+div#divRenderBody{
+	width:100%;
+	height:70%;
+}
+div#divLogo{
+	background-image:url('Social_event.jpg');
+	background-position:center;
+	background-repeat:no-repeat;
+}
+
+div#divTitle{
+	font-family:"Lucida Handwriting";
+	font-size:15px;
+}
+
+div#divFooter
+{
+	height:15%;
+}
+table#tableEvents
+{
+	width:100%;
+	background-image:none;
+}

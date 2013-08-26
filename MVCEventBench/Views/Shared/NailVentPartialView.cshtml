@@ -1,0 +1,23 @@
+﻿@model MVCEventBench.Classes.NailVent
+
+@{
+    string strEventGUID = Model.EventGUID.ToString();
+ }
+          
+<div id="divMain" style="position:relative">
+    <div id="divEventLink" style="font-size:25px; font-family:@Model.TitleFontFamily;">
+       @Html.ActionLink(Model.Name, "EventClicked", new { gEventGUID = Model.EventGUID }, new { @style = "color:black;" })
+    </div>
+    <div class="BackgroundImage" id="divBorder" style="height:150px; width:325px; border-width:medium; border-style:solid;" >
+            <div id="divAddress" style="position:absolute; top:10; color:@Model.LocationColor;">
+                <label id="lblAddress"  style="font-family:@Model.AddressFontFamily; color:@Model.AddressFontColor; font-size:@Model.AddressFontSize.ToString()px;">@Model.Location</label>
+            </div>
+            <img  id="imgBackground" lang="@Model.EventGUID" style="width:100%;height:100%" src="/home/ShowPhoto/@Model.EventGUID" alt="" />
+            <div id="divDateTime" style="position:absolute; bottom:0; right:200; color:@Model.DateColor;">
+                <label id="lblDate" style="color:@Model.DateFontColor; font-size:@Model.DateFontSize.ToString()px; font-family:@Model.DateFontFamily">@Model.DateStart.ToString("d")</label>
+            </div>
+    </div>
+</div>
+
+
+

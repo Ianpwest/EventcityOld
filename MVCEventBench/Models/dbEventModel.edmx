@@ -1,0 +1,292 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="EventsModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <EntityContainer Name="EventsModelStoreContainer">
+          <EntitySet Name="Cities" EntityType="EventsModel.Store.Cities" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Event" EntityType="EventsModel.Store.Event" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Image" EntityType="EventsModel.Store.Image" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="States" EntityType="EventsModel.Store.States" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Tags" EntityType="EventsModel.Store.Tags" store:Type="Tables" store:Schema="dbo" store:Name="Tags">
+            <DefiningQuery>SELECT 
+      [Tags].[gTagGUID] AS [gTagGUID], 
+      [Tags].[strName] AS [strName]
+      FROM [dbo].[Tags] AS [Tags]</DefiningQuery>
+          </EntitySet>
+        </EntityContainer>
+        <EntityType Name="Cities">
+          <Key>
+            <PropertyRef Name="gCitiesGUID" />
+          </Key>
+          <Property Name="strCountry" Type="char" Nullable="false" MaxLength="2" />
+          <Property Name="strCity" Type="varchar" Nullable="false" MaxLength="255" />
+          <Property Name="strStateAbbr" Type="char" Nullable="false" MaxLength="2" />
+          <Property Name="nPopulation" Type="bigint" Nullable="false" />
+          <Property Name="nLatitude" Type="real" Nullable="false" />
+          <Property Name="nLongitude" Type="real" Nullable="false" />
+          <Property Name="gCitiesGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="gState" Type="uniqueidentifier" />
+        </EntityType>
+        <EntityType Name="Event">
+          <Key>
+            <PropertyRef Name="gEventGUID" />
+          </Key>
+          <Property Name="gEventGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="strEventName" Type="varchar" MaxLength="50" />
+          <Property Name="dEventDateEnd" Type="datetime" />
+          <Property Name="dEventDateStart" Type="datetime" />
+          <Property Name="strEventLocation" Type="varchar" MaxLength="50" />
+          <Property Name="strEventState" Type="varchar" MaxLength="50" />
+          <Property Name="strEventCity" Type="varchar" MaxLength="50" />
+          <Property Name="strEventAddress" Type="varchar" MaxLength="50" />
+          <Property Name="bIsDeleted" Type="bit" Nullable="false" />
+          <Property Name="strTitleFontFamily" Type="varchar" MaxLength="50" />
+          <Property Name="strAddressFontFamily" Type="varchar" MaxLength="50" />
+          <Property Name="strDateFontColor" Type="varchar" MaxLength="50" />
+          <Property Name="strDateFontFamily" Type="varchar" MaxLength="50" />
+          <Property Name="strAddressFontColor" Type="varchar" MaxLength="50" />
+          <Property Name="strAddressFontSize" Type="varchar" MaxLength="50" />
+          <Property Name="strDateFontSize" Type="varchar" MaxLength="50" />
+          <Property Name="strDescription" Type="text" />
+          <Property Name="strDetails" Type="text" />
+          <Property Name="strSponsor" Type="varchar" MaxLength="50" />
+          <Property Name="strContact" Type="varchar" MaxLength="50" />
+          <Property Name="strWebpage" Type="varchar" MaxLength="50" />
+          <Property Name="strPhoneNumber" Type="varchar" MaxLength="50" />
+          <Property Name="strTag1" Type="varchar" MaxLength="50" />
+          <Property Name="strTag2" Type="varchar" MaxLength="50" />
+          <Property Name="strTag3" Type="varchar" MaxLength="50" />
+          <Property Name="strTitleColor" Type="varchar" MaxLength="50" />
+          <Property Name="strLocationColor" Type="varchar" MaxLength="50" />
+          <Property Name="strDateColor" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <EntityType Name="Image">
+          <Key>
+            <PropertyRef Name="gEventImageGUID" />
+          </Key>
+          <Property Name="gEventImageGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="gEvent" Type="uniqueidentifier" />
+          <Property Name="imgContent" Type="image" />
+          <Property Name="strAltImageName" Type="varchar" MaxLength="50" />
+          <Property Name="strMIMEType" Type="varchar" MaxLength="50" />
+          <Property Name="strFileName" Type="varchar" MaxLength="50" />
+          <Property Name="bIsDeleted" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="States">
+          <Key>
+            <PropertyRef Name="gStateGUID" />
+          </Key>
+          <Property Name="gStateGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="strAbbrName" Type="varchar" MaxLength="50" />
+          <Property Name="strName" Type="varchar" MaxLength="50" />
+          <Property Name="bIsDeleted" Type="bit" Nullable="false" />
+        </EntityType>
+        <!--Errors Found During Generation:
+      warning 6002: The table/view 'Events.dbo.Tags' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.
+      -->
+        <EntityType Name="Tags">
+          <Key>
+            <PropertyRef Name="gTagGUID" />
+          </Key>
+          <Property Name="gTagGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="strName" Type="varchar" MaxLength="50" />
+        </EntityType>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="EventsModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+        <EntityContainer Name="dbEventModel" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Event" EntityType="EventsModel.Event" />
+          <EntitySet Name="Image" EntityType="EventsModel.Image" />
+          <EntitySet Name="States" EntityType="EventsModel.States" />
+          <EntitySet Name="Cities" EntityType="EventsModel.Cities" />
+          <EntitySet Name="Tags" EntityType="EventsModel.Tags" />
+        </EntityContainer>
+        <EntityType Name="Event">
+          <Key>
+            <PropertyRef Name="gEventGUID" />
+          </Key>
+          <Property Name="gEventGUID" Type="Guid" Nullable="false" />
+          <Property Name="strEventName" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="strEventAddress" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="bIsDeleted" Type="Boolean" Nullable="false" />
+          <Property Name="strTitleFontFamily" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="strAddressFontFamily" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="strDateFontFamily" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="strAddressFontSize" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="strDateFontSize" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Type="String" Name="strDescription" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="strDetails" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="strSponsor" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="strContact" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="strWebpage" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="strPhoneNumber" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="strTag1" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="strTag2" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="strTag3" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="DateTime" Name="dEventDateEnd" />
+          <Property Type="DateTime" Name="dEventDateStart" />
+          <Property Type="String" Name="strEventLocation" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="strEventState" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="strEventCity" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="strDateFontColor" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="strAddressFontColor" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="strTitleColor" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="strLocationColor" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="strDateColor" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityType Name="Image">
+          <Key>
+            <PropertyRef Name="gEventImageGUID" />
+          </Key>
+          <Property Type="Guid" Name="gEventImageGUID" Nullable="false" />
+          <Property Type="Guid" Name="gEvent" />
+          <Property Type="Binary" Name="imgContent" MaxLength="Max" FixedLength="false" />
+          <Property Type="String" Name="strAltImageName" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="strMIMEType" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="strFileName" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="Boolean" Name="bIsDeleted" Nullable="false" />
+        </EntityType>
+        <EntityType Name="States">
+          <Key>
+            <PropertyRef Name="gStateGUID" />
+          </Key>
+          <Property Type="Guid" Name="gStateGUID" Nullable="false" />
+          <Property Type="String" Name="strAbbrName" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="strName" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="Boolean" Name="bIsDeleted" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Cities">
+          <Key>
+            <PropertyRef Name="gCitiesGUID" />
+          </Key>
+          <Property Type="String" Name="strCountry" Nullable="false" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Type="String" Name="strCity" Nullable="false" MaxLength="255" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="strStateAbbr" Nullable="false" MaxLength="2" FixedLength="true" Unicode="false" />
+          <Property Type="Int64" Name="nPopulation" Nullable="false" />
+          <Property Type="Single" Name="nLatitude" Nullable="false" />
+          <Property Type="Single" Name="nLongitude" Nullable="false" />
+          <Property Type="Guid" Name="gCitiesGUID" Nullable="false" />
+          <Property Type="Guid" Name="gState" />
+        </EntityType>
+        <EntityType Name="Tags">
+          <Key>
+            <PropertyRef Name="gTagGUID" />
+          </Key>
+          <Property Type="Guid" Name="gTagGUID" Nullable="false" />
+          <Property Type="String" Name="strName" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="EventsModelStoreContainer" CdmEntityContainer="dbEventModel">
+          <EntitySetMapping Name="Event"><EntityTypeMapping TypeName="EventsModel.Event"><MappingFragment StoreEntitySet="Event">
+                <ScalarProperty Name="strDateColor" ColumnName="strDateColor" />
+                <ScalarProperty Name="strLocationColor" ColumnName="strLocationColor" />
+                <ScalarProperty Name="strTitleColor" ColumnName="strTitleColor" />
+                <ScalarProperty Name="strAddressFontColor" ColumnName="strAddressFontColor" />
+                <ScalarProperty Name="strDateFontColor" ColumnName="strDateFontColor" />
+                <ScalarProperty Name="strEventCity" ColumnName="strEventCity" />
+                <ScalarProperty Name="strEventState" ColumnName="strEventState" />
+                <ScalarProperty Name="strEventLocation" ColumnName="strEventLocation" />
+                <ScalarProperty Name="dEventDateStart" ColumnName="dEventDateStart" />
+                <ScalarProperty Name="dEventDateEnd" ColumnName="dEventDateEnd" />
+                <ScalarProperty Name="strTag3" ColumnName="strTag3" />
+                <ScalarProperty Name="strTag2" ColumnName="strTag2" />
+                <ScalarProperty Name="strTag1" ColumnName="strTag1" />
+                <ScalarProperty Name="strPhoneNumber" ColumnName="strPhoneNumber" />
+                <ScalarProperty Name="strWebpage" ColumnName="strWebpage" />
+                <ScalarProperty Name="strContact" ColumnName="strContact" />
+                <ScalarProperty Name="strSponsor" ColumnName="strSponsor" />
+                <ScalarProperty Name="strDetails" ColumnName="strDetails" />
+                <ScalarProperty Name="strDescription" ColumnName="strDescription" />
+                <ScalarProperty Name="gEventGUID" ColumnName="gEventGUID" />
+            <ScalarProperty Name="strEventName" ColumnName="strEventName" />
+            <ScalarProperty Name="strEventAddress" ColumnName="strEventAddress" />
+            <ScalarProperty Name="bIsDeleted" ColumnName="bIsDeleted" />
+            <ScalarProperty Name="strTitleFontFamily" ColumnName="strTitleFontFamily" />
+            <ScalarProperty Name="strAddressFontFamily" ColumnName="strAddressFontFamily" />
+            <ScalarProperty Name="strDateFontFamily" ColumnName="strDateFontFamily" />
+            <ScalarProperty Name="strAddressFontSize" ColumnName="strAddressFontSize" />
+            <ScalarProperty Name="strDateFontSize" ColumnName="strDateFontSize" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Image">
+            <EntityTypeMapping TypeName="EventsModel.Image">
+              <MappingFragment StoreEntitySet="Image">
+                <ScalarProperty Name="bIsDeleted" ColumnName="bIsDeleted" />
+                <ScalarProperty Name="strFileName" ColumnName="strFileName" />
+                <ScalarProperty Name="strMIMEType" ColumnName="strMIMEType" />
+                <ScalarProperty Name="strAltImageName" ColumnName="strAltImageName" />
+                <ScalarProperty Name="imgContent" ColumnName="imgContent" />
+                <ScalarProperty Name="gEvent" ColumnName="gEvent" />
+                <ScalarProperty Name="gEventImageGUID" ColumnName="gEventImageGUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="States">
+            <EntityTypeMapping TypeName="EventsModel.States">
+              <MappingFragment StoreEntitySet="States">
+                <ScalarProperty Name="bIsDeleted" ColumnName="bIsDeleted" />
+                <ScalarProperty Name="strName" ColumnName="strName" />
+                <ScalarProperty Name="strAbbrName" ColumnName="strAbbrName" />
+                <ScalarProperty Name="gStateGUID" ColumnName="gStateGUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Cities">
+            <EntityTypeMapping TypeName="EventsModel.Cities">
+              <MappingFragment StoreEntitySet="Cities">
+                <ScalarProperty Name="gState" ColumnName="gState" />
+                <ScalarProperty Name="gCitiesGUID" ColumnName="gCitiesGUID" />
+                <ScalarProperty Name="nLongitude" ColumnName="nLongitude" />
+                <ScalarProperty Name="nLatitude" ColumnName="nLatitude" />
+                <ScalarProperty Name="nPopulation" ColumnName="nPopulation" />
+                <ScalarProperty Name="strStateAbbr" ColumnName="strStateAbbr" />
+                <ScalarProperty Name="strCity" ColumnName="strCity" />
+                <ScalarProperty Name="strCountry" ColumnName="strCountry" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Tags">
+            <EntityTypeMapping TypeName="EventsModel.Tags">
+              <MappingFragment StoreEntitySet="Tags">
+                <ScalarProperty Name="strName" ColumnName="strName" />
+                <ScalarProperty Name="gTagGUID" ColumnName="gTagGUID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams>
+      <Diagram Name="dbEventModel">
+        <EntityTypeShape EntityType="EventsModel.Event" Width="1.5" PointX="0.75" PointY="0.5" Height="6.4032194010416656" IsExpanded="true" />
+        <EntityTypeShape EntityType="EventsModel.Image" Width="1.5" PointX="3.375" PointY="0.75" Height="2.0853483072916674" />
+        <EntityTypeShape EntityType="EventsModel.States" Width="1.5" PointX="5.375" PointY="0.75" Height="1.5923063151041657" />
+        <EntityTypeShape EntityType="EventsModel.Cities" Width="1.5" PointX="3.625" PointY="3.5" Height="2.2496956380208335" />
+        <EntityTypeShape EntityType="EventsModel.Tags" Width="1.5" PointX="0.75" PointY="7.125" Height="1.4033821614583335" />
+      </Diagram>
+    </Diagrams>
+  </Designer>
+</edmx:Edmx>

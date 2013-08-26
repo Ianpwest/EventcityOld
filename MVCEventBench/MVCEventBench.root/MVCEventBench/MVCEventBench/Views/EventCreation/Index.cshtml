@@ -1,0 +1,291 @@
+﻿@{
+    ViewBag.Title = "Event Creation";
+}
+
+<h1 style="text-align:center";> Event Creation !</h1>
+
+<div id="ECTop" style="position:relative; height:33%; width:100%;">
+    
+    <div style="position:relative; float:left; width:40%; height:100%;">
+        
+        <div style="position:relative; height:33%; width:100%;">
+            
+            <form>
+                Title: <input type="text" name="title" />
+            </form>
+
+        </div >
+
+        <div style="position:relative; height:33%; width:100%;">
+            
+            <form>
+                Upload image: <input type="image" name="image" />
+            </form>
+
+        </div>
+
+        <div style="position:relative; height:33%; width:100%;">
+            
+            <form>
+                Address: <input type="text" name ="address" />
+            </form>
+
+        </div>
+
+    </div>
+
+    <div style="position:relative; float:left; width:40%; height:100%;">
+        
+        <img src="../../Content/bukiki-party.gif" height="100%"; width="100%";/>
+
+    </div>
+
+</div>
+
+<div id="ECBot" style="position:relative; height:47%; width:100%;">
+
+    <div style="position:relative; float:left; width:45%; height:100%;">
+
+        <div style="position:relative; height:25%; width:100%;">
+            
+            <form action="";>
+            Date: 
+                <select name="month">
+                    <option value="january">January</option>
+                    <option value="february">February</option>
+                    <option value="march">March</option>
+                    <option value="april">April</option>
+                    <option value="may">May</option>
+                    <option value="june">June</option>
+                    <option value="july">July</option>
+                    <option value="august">August</option>
+                    <option value="september">September</option>
+                    <option value="october">Month1</option>
+                    <option value="november">Month1</option>
+                    <option value="december">Month1</option>
+                </select>
+
+                <select name="day">
+                    <option value="day1">Day1</option>
+                    <option value="day2">Day2</option>
+                    <option value="day3">Day3</option>
+                </select>
+                
+                <select name="year">
+                    <option value="year1">Year1</option>
+                    <option value="year2">Year2</option>
+                    <option value="year3">Year3</option>
+                </select>
+
+            </form>
+
+        </div>
+
+        <div style="position:relative; height:25%; width:100%;">
+            
+            <form action="";>
+            Time: 
+                <select name="hours">
+                    <option value="hour1">Hour1</option>
+                    <option value="hour2">Hour2</option>
+                    <option value="hour3">Hour3</option>
+                </select>
+                Hr
+                <select name="minutes">
+                    <option value="minute1">Minute1</option>
+                    <option value="minute2">Minute2</option>
+                    <option value="minute3">Minute3</option>
+                </select>
+                Min
+                <select name="ampm">
+                    <option value="am">AM</option>
+                    <option value="pm">PM</option>                    
+                </select>
+                AM/PM
+            </form>
+        </div>
+        
+        <div style="position:relative; height:50%; width:100%;">
+
+            <p>Description:</p>
+            <textarea rows="5" cols="30">Type your description of the event here...</textarea>
+
+        </div>
+
+    </div>
+
+    <div style="position:relative; float:left; width:50%; height:100%;">        
+        
+        <div style="position:relative; width:100%; height:25%;">
+            
+            <div style="position:relative; float:left; height:100%; width:25%;">
+                <p>Font Style</p>
+            </div>
+
+            <div style="position:relative; float:left; height:100%; width:35%;">
+                <p>Lettering</p>
+            </div>
+
+            <div style="position:relative; float:left; height:100%; width:15%;">
+                <p>Font Size</p>
+            </div>
+
+            <div style="position:relative; float:left; height:100%; width:25%;">
+                <p>Color</p>
+            </div>
+
+        </div>
+            
+        <div style="position:relative; width:100%; height:25%;">
+            
+            <div style="position:relative; float:left; height:100%; width:25%;">
+                <p>Title:</p>
+            </div>
+
+            <div style="position:relative; float:left; height:100%; width:35%;">
+                
+                <form action="">
+
+                    <select name="titlefontfamily">                       
+                        <option value ="titlefontfamily1">TitleFontFamily1</option>
+                        <option value ="titlefontfamily2">TitleFontFamily2</option>
+                        <option value ="titlefontfamily3">TitleFontFamily3</option>
+                    </select>
+
+                </form>
+
+            </div>
+
+            <div style="position:relative; float:left; height:100%; width:15%;">
+                
+                <form action="">
+
+                    <select name="titlesize">                       
+                        <option value ="11">11</option>
+                        <option value ="12">12</option>
+                        <option value ="13">13</option>
+                    </select>
+
+                </form>
+
+            </div>
+
+            <div style="position:relative; float:left; height:100%; width:25%;">
+                
+                <form action="">
+
+                    <select name="titlecolor">                       
+                        <option value ="titlecolor1">TitleColor1</option>
+                        <option value ="titlecolor2">TitleColor2</option>
+                        <option value ="titlecolor3">TitleColor3</option>
+                    </select>
+
+                </form>
+
+            </div>
+
+        </div>
+
+        <div style="position:relative; width:100%; height:25%;">
+            
+            <div style="position:relative; float:left; height:100%; width:25%;">
+                <p>Address:</p>
+            </div>
+
+            <div style="position:relative; float:left; height:100%; width:35%;">
+                
+                <form action="">
+
+                    <select name="addressfontfamily">                       
+                        <option value ="addressfontfamily1">AddressFontFamily1</option>
+                        <option value ="addressfontfamily2">AddressFontFamily2</option>
+                        <option value ="addressfontfamily3">AddressFontFamily3</option>
+                    </select>
+
+                </form>
+
+            </div>
+
+            <div style="position:relative; float:left; height:100%; width:15%;">
+                
+                <form action="">
+
+                    <select name="addresssize">                       
+                        <option value ="11">11</option>
+                        <option value ="12">12</option>
+                        <option value ="13">13</option>
+                    </select>
+
+                </form>
+
+            </div>
+
+            <div style="position:relative; float:left; height:100%; width:25%;">
+                
+                <form action="">
+
+                    <select name="addresscolor">                       
+                        <option value ="addresscolor1">AddressColor1</option>
+                        <option value ="addresscolor2">AddressColor2</option>
+                        <option value ="addresscolor3">AddressColor3</option>
+                    </select>
+
+                </form>
+
+            </div>
+        
+        </div>
+
+        <div style="position:relative; width:100%; height:25%;">
+
+            <div style="position:relative; float:left; height:100%; width:25%;">
+                <p>Date/Time:</p>
+            </div>
+
+            <div style="position:relative; float:left; height:100%; width:35%;">
+                
+                <form action="">
+
+                    <select name="datetimefontfamily">                       
+                        <option value ="datetimefontfamily1">DateTimeFontFamily1</option>
+                        <option value ="datetimefontfamily2">DateTimeFontFamily2</option>
+                        <option value ="datetimefontfamily3">DateTimeFontFamily3</option>
+                    </select>
+
+                </form>
+
+            </div>
+
+            <div style="position:relative; float:left; height:100%; width:15%;">
+                
+                <form action="">
+
+                    <select name="datetimesize">                       
+                        <option value ="11">11</option>
+                        <option value ="12">12</option>
+                        <option value ="!3">13</option>
+                    </select>
+
+                </form>
+
+            </div>
+
+            <div style="position:relative; float:left; height:100%; width:25%;">
+                
+                <form action="">
+
+                    <select name="datetimecolor">                       
+                        <option value ="datetimecolor1">DateTimeColor1</option>
+                        <option value ="datetimecolor2">DateTimeColor2</option>
+                        <option value ="datetimecolor3">DateTimeColor3</option>
+                    </select>
+
+                </form>
+
+            </div>
+        
+        </div>
+
+    </div>
+
+</div>

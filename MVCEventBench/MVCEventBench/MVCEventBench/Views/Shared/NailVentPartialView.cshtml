@@ -1,0 +1,15 @@
+﻿@model MVCEventBench.Classes.NailVent
+           
+<div id="divMain" style="position:relative">
+    <label id="lblTitle" style="font-size:large; font-family:@Model.TitleFontFamily">@Model.Title</label>
+    <div id="divBorder" style="height:150px; width:325px; border-width:medium; border-style:solid" >
+        <div id="divAddress">
+            <label id="lblAddress" style="font-family:@Model.AddressFontFamily">@Model.Address</label>
+        </div>
+        <div id="divDateTime" style="position:absolute; bottom:0; right:200">
+            <label id="lblDate" style="font-family:@Model.DateFontFamily">@Model.Date.ToString("d")</label>
+            <label id="lblTime" style="font-family:@Model.TimeFontFamily">@Model.Time</label>
+        </div>
+    </div>
+</div>
+

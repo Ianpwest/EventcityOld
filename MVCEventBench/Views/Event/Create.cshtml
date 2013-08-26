@@ -1,0 +1,482 @@
+﻿@model MVCEventBench.Models.Event
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<script src="@Url.Content("~/Scripts/jquery.validate.min.js")" type="text/javascript"></script>
+<script src="@Url.Content("~/Scripts/jquery.validate.unobtrusive.min.js")" type="text/javascript"></script>
+
+@{
+    Guid gEventGUID = Guid.NewGuid();
+}
+
+@using (Html.BeginForm("Create", "Event", FormMethod.Post, new { enctype = "multipart/form-data", style = "width:100%; autocomplete:off;" }))
+{
+    @Html.ValidationSummary(true)
+    <fieldset style="width:100%; border-width:0px;">
+        <h2>Create</h2>
+        <p id="testp">Testing</p>
+        <table>
+            <tr id="trEventCreation">
+                <td class="tdEventCreation">
+                    <div class="editor-label">
+                        <label>Event Title</label>
+                    </div>
+                    <table>
+                        <tr>
+                            <td id="EventName">
+                                <div class="editor-field">
+                                    @Html.TextBoxFor(model => model.strEventName, new { autocomplete="off", onblur = "validateTitle()", onkeyup = "dynamicText('strEventName', 'dynamicTitle')", onreset = "dynamicText('strEventName', 'dynamicTitle')" })
+                                    @Html.ValidationMessageFor(model => model.strEventName)
+                                </div>
+                            </td>
+                            <td>
+                                <img id="titleCheck" style="display:none" src="../../Content/checkmark_green.gif" alt="" />
+                                <img id="titleX" style="display:none" src="../../Content/redX.gif" alt="" />
+                            </td>
+                        </tr>
+                    </table>
+
+                    <input id="Img"  type="file" name="FileUpload1" onchange="readURL(this);" />
+
+                    <div class="editor-label">
+                        <label>Address</label>
+                    </div>
+                    <div id="Address" class="editor-field">
+                        @Html.TextBoxFor(model => model.strEventAddress, new { autocomplete = "off" })
+                        @Html.ValidationMessageFor(model => model.strEventAddress)
+                    </div>
+
+                    <div class="editor-label">
+                        <label>State</label>
+                    </div>
+                    <div class="editor-field">
+                        @Html.DropDownListFor(model => model.strEventState, (SelectList)ViewBag.myStatesList, new { onchange = "getCitiesList(), MainValidation()" })
+                        @Html.ValidationMessageFor(model => model.strEventState)
+                    </div>
+
+                    <div class="editor-label">
+                        <label id="lblCity">City</label>
+                    </div>
+                    <div class="editor-field">
+                        @Html.DropDownListFor(model => model.strEventCity, (SelectList)ViewBag.myCitiesList, new { onchange = "MainValidation()" })
+                        @Html.ValidationMessageFor(model => model.strEventCity)
+                    </div>
+
+                    <div class="editor-label">
+                        <label>Sponsor</label>
+                    </div>
+                    <div id="Sponsor" class="editor-field">
+                        @Html.TextBoxFor(model => model.strSponsor, new { autocomplete = "off" })
+                        @Html.ValidationMessageFor(model => model.strSponsor)
+                    </div>
+
+                    <div class="editor-label">
+                        <label>Contact</label>
+                    </div>
+                    <div id="Contact" class="editor-field">
+                        @Html.TextBoxFor(model => model.strContact, new { autocomplete = "off" })
+                        @Html.ValidationMessageFor(model => model.strContact)
+                    </div>
+
+                    <div class="editor-label">
+                        <label>Phone Number</label>
+                    </div>
+                    <table>
+                        <tr>
+                            <td>
+                                <div id="PhoneNumber" class="editor-field">
+                                    @Html.TextBoxFor(model => model.strPhoneNumber, new {  autocomplete = "off" , onblur = "validatePhone()" })
+                                    @Html.ValidationMessageFor(model => model.strPhoneNumber)
+                                </div>
+                            </td>
+                            <td>
+                                <img style="display:none;" id="phoneCheck" src="../../Content/checkmark_green.gif" alt="" />
+                                <img style="display:none;" id="phoneX" src="../../Content/redX.gif" alt="" />
+                            </td>
+                        </tr>
+                    </table>
+
+                    <div class="editor-label">
+                        <label>Webpage</label>
+                    </div>
+                    <table>
+                        <tr>
+                            <td>
+                                <div id="Webpage" class="editor-field">
+                                    @Html.TextBoxFor(model => model.strWebpage, new {  autocomplete = "off" , onblur = "validateWeb()" })
+                                    @Html.ValidationMessageFor(model => model.strWebpage)
+                                </div>
+                            </td>
+                            <td>
+                                <img style="display:none;" id="webCheck" src="../../Content/checkmark_green.gif" alt="" />
+                                <img style="display:none;" id="webX" src="../../Content/redX.gif" alt="" />
+                            </td>
+                        </tr> 
+                    </table>                   
+                </td>
+
+                <td class="tdEventCreation" style="vertical-align:top;">
+                    <div class="editor-label">
+                        <label id="dynamicTitle" style="font-size:25px">Dynamic title</label>
+                    </div>
+                    <div style="position:relative; height: 150px; width: 325px; border-width: medium; border-style: solid;">                        
+                        <img id="imgPreview" style="position:absolute; width: 100%; height: 100%;" alt=""
+                            src="../../Content/BlankImage.gif" />
+                        <p id="dynamicLocation" style="font-size:15px; position:absolute; top:-10px;">Dynamic Location</p>
+                        <p id="dynamicDate" style="font-size:15px; position:absolute; bottom:-10px;">Dynamic Date</p>                                                
+                    </div>
+                    <table>
+                        <tr>
+                            <td>
+                                <div class="editor-label">
+                                    <label>Title Font</label></div>
+                                <div class="editor-field">
+                                    @Html.DropDownListFor(model => model.strTitleFontFamily, (SelectList)ViewBag.myFontList, new { onchange = "dynamicFont('strTitleFontFamily', 'dynamicTitle')" })
+                                    @Html.ValidationMessageFor(model => model.strTitleFontFamily)
+                                </div>
+                            </td>
+
+                            <td>
+                                <div class="editor-label">
+                                    <label>Location Font</label>
+                                </div>
+                                <div class="editor-field">
+                                    @Html.DropDownListFor(model => model.strAddressFontFamily, (SelectList)ViewBag.myFontList, new { onchange = "dynamicFont('strAddressFontFamily', 'dynamicLocation')" })
+                                    @Html.ValidationMessageFor(model => model.strAddressFontFamily)
+                                </div>
+                            </td>
+
+                            <td>
+                                <div class="editor-label">
+                                    <label>Date Font</label>
+                                </div>
+                                <div class="editor-field">
+                                    @Html.DropDownListFor(model => model.strDateFontFamily, (SelectList)ViewBag.myFontList, new { onchange = "dynamicFont('strDateFontFamily', 'dynamicDate')" })
+                                    @Html.ValidationMessageFor(model => model.strDateFontFamily)
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                            </td>
+
+                            <td>
+                                <div class="editor-label">
+                                    <label>Location Size</label>
+                                </div>
+                                <div class="editor-field">
+                                    @Html.DropDownListFor(model => model.strAddressFontSize, (SelectList)ViewBag.myFontSizeList, new { onchange = "dynamicSize('strAddressFontSize', 'dynamicLocation')" })
+                                    @Html.ValidationMessageFor(model => model.strAddressFontSize)
+                                </div>                            
+                            </td>
+
+                            <td>
+                                <div class="editor-label">
+                                    <label>Date Size</label>
+                                </div>
+                                <div class="editor-field">
+                                    @Html.DropDownListFor(model => model.strDateFontSize, (SelectList)ViewBag.myFontSizeList, new { onchange = "dynamicSize('strDateFontSize', 'dynamicDate')" })
+                                    @Html.ValidationMessageFor(model => model.strDateFontSize)
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                            </td>
+
+                            <td>
+                                <div class="editor-label">
+                                    <label>Location Color</label>
+                                </div>
+                                <div class="editor-field">
+                                    @Html.DropDownListFor(model => model.strLocationColor, (SelectList)ViewBag.myColorList, new { onchange = "dynamicColor('strLocationColor', 'dynamicLocation')" })
+                                    @Html.ValidationMessageFor(model => model.strLocationColor)
+                                </div>
+                            </td>
+
+                            <td>
+                                <div class="editor-label">
+                                    <label>Date Color</label>
+                                </div>
+                                <div class="editor-field">
+                                    @Html.DropDownListFor(model => model.strDateColor, (SelectList)ViewBag.myColorList, new { onchange = "dynamicColor('strDateColor', 'dynamicDate')" })
+                                    @Html.ValidationMessageFor(model => model.strDateColor)
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <div class="editor-label">
+                                    <label>Tag 1</label>
+                                </div>
+                                <div class="editor-field">
+                                    @Html.DropDownListFor(model => model.strTag1, (SelectList)ViewBag.myTagList)
+                                    @Html.ValidationMessageFor(model => model.strTag1)
+                                </div>
+                            </td>
+
+                            <td>
+                                <div class="editor-label">
+                                    <label>Tag 2</label>
+                                </div>
+                                <div class="editor-field">
+                                    @Html.DropDownListFor(model => model.strTag2, (SelectList)ViewBag.myTagList)
+                                    @Html.ValidationMessageFor(model => model.strTag2)
+                                </div>
+                            </td>
+
+                            <td>
+                                <div class="editor-label">
+                                    <label>Tag 3</label>
+                                </div>
+                                <div class="editor-field">
+                                    @Html.DropDownListFor(model => model.strTag3, (SelectList)ViewBag.myTagList)
+                                    @Html.ValidationMessageFor(model => model.strTag3)
+                                </div>
+                            </td>
+                        </tr>
+                        
+                    </table>
+
+                    <table>
+                        <tr>
+                            <td>
+                                <div class="editor-label">
+                                    <label>Details</label>
+                                </div>
+                                <div id="Details" class="editor-field">
+                                    @Html.TextAreaFor(model => model.strDetails, new { rows = "9", cols = "25" })
+                                    @Html.ValidationMessageFor(model => model.strDetails)
+                                </div>
+                            </td>
+                            <td>
+                                <div class="editor-label">
+                                    <label>Description</label>
+                                </div>
+                                <div id="Description" class="editor-field">
+                                    @Html.TextAreaFor(model => model.strDescription, new { rows = "9", cols = "25" })
+                                    @Html.ValidationMessageFor(model => model.strDescription)
+                                </div>
+                            </td>
+                        </tr>
+                    </table>
+                </td>
+
+                <td class="tdEventCreation" style="vertical-align:top;">
+                    <div class="editor-label">
+                        <label>Location</label>
+                    </div>
+                    <table>
+                        <tr>
+                            <td>
+                                <div id="Location" class="editor-field">
+                                    @Html.TextBoxFor(model => model.strEventLocation, new {  autocomplete = "off" , onblur = "validateLocation()", onkeyup = "dynamicText('strEventLocation', 'dynamicLocation')" })
+                                    @Html.ValidationMessageFor(model => model.strEventLocation)
+                                </div>
+                            </td>
+                            <td>
+                                <img id="locCheck" style="display:none;" src="../../Content/checkmark_green.gif" alt="" />
+                                <img id="locX" style="display:none;" src="../../Content/redX.gif" alt="" />
+                            </td>
+                        </tr>
+                    </table>
+
+                    <div class="editor-label">
+                        <label>Date</label>
+                    </div>
+                    <table>
+                        <tr>
+                            <td>
+                                <div id="Date" class="editor-field">
+                                    @Html.TextBoxFor(model => model.dEventDateStart, new {  autocomplete = "off" , onblur = "validateDate()", onkeyup = "dynamicDate('dEventDateStart', 'dynamicDate')" })
+                                    @Html.ValidationMessageFor(model => model.dEventDateStart)
+                                </div>
+                            </td>
+                            <td>
+                                <img id="dateCheck" style="display:none;" src="../../Content/checkmark_green.gif" alt="" />
+                                <img id="dateX" style="display:none;" src="../../Content/redX.gif" alt="" />
+                            </td>
+                        </tr>
+                    </table>
+
+                    @*<div class="editor-label">
+                        <label>
+                            End Date</label>
+                    </div>
+                    <div class="editor-field">
+                        @Html.TextBoxFor(model => model.dEventDateEnd, new { onkeyup = "dynamicDate('dEventDateStart', 'dEventDateEnd', 'dynamicDate')" })
+                        @Html.ValidationMessageFor(model => model.dEventDateEnd)
+                    </div>*@
+                </td>
+            </tr>
+        </table>       
+               
+        <input id="submitEvent" style="display:none;" name="imgSubmit" type="submit" value="Create" onclick="Submit_onClick" />         
+    </fieldset>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+
+<script type="text/jscript">
+
+    $(document).ready(function () {
+        $('#EventName').qtip(
+        {
+            content: 'Name your event here!'
+        });
+        $('#Img').qtip(
+        {
+            content: 'Upload a file to act as your events background image.',
+            position: {
+                at: 'bottom center' 
+				      }
+        });
+        $('#Address').qtip(
+        {
+            content: 'ex: 5555 Ashland City Rd 37043',
+            position: {
+                at: 'bottom center' 
+				      }
+        });
+	    $('#Sponsor').qtip(
+        {
+            content: 'The sponsor of this event!',
+            position: {
+                at: 'bottom center'
+            }
+        });
+        $('#Contact').qtip(
+        {
+            content: 'The person, place, or thing to contact for this event',
+            position: {
+                at: 'bottom center'
+            }
+        });
+        $('#PhoneNumber').qtip(
+        {
+            content: 'The phone number to call \r\n ex. x-xxx-xxx-xxxx \r\n     x.xxx.xxx.xxxx',
+            position: {
+                at: 'bottom center'
+            }
+        });
+        $('#Webpage').qtip(
+        {
+            content: 'www.TheEventsWebsite.com',
+            position: {
+                at: 'bottom center'
+            }
+        });
+        $('#Location').qtip(
+        {
+            content: 'Building Name-The Barn or your actual barn? How about the local gym?',
+            position: {
+                at: 'bottom center'
+            }
+        });
+        $('#Date').qtip(
+        {
+            content: 'What day is this event?',
+            position: {
+                at: 'bottom center'
+            }
+        });
+        $('#Details').qtip(
+        {
+            content: 'Any specific details we need to know about this event?',
+            position: {
+                at: 'bottom center'
+            }
+        });
+        $('#Description').qtip(
+        {
+            content: 'Give a description of your event here. The more you say the more we know',
+            position: {
+                at: 'bottom center'
+            }
+        });
+    });
+    
+    function getCitiesList() {
+        $.ajax({
+            type: "Post",
+            datatype: 'json',
+            data: "strState=" + document.getElementById("strEventState").value,
+            url: "/Home/GetCitiesCB",
+            success: function (data) {
+                //Clear the current contents of the cb
+                ClearCB("strEventCity");
+
+                var strCity = data.message;
+                var arryCities = new Array();
+
+                arryCities = parseLineCSV(strCity);
+                
+                for (var i = 0; i < arryCities.length; i++) {
+                    var opt = document.createElement("option");
+                    document.getElementById("strEventCity").options.add(opt);
+
+                    opt.text = arryCities[i];
+                }
+
+            }
+        });
+    }
+
+    //This is replicated from the index view... need to consolidate into a single file
+    function ClearCB(cbCities) {
+        document.getElementById(cbCities).options.length = 0;
+    }
+
+    //This is also replicated from the index view... need to consolidate into a single file
+    function parseLineCSV(lineCSV) {
+        // parse csv line by line into array
+        var CSV = new Array();
+
+        lineCSV = lineCSV.replace(/,/g, " ,");
+
+        lineCSV = lineCSV.split(/,/g);
+
+        // This is continuing of 'split' issue in IE
+        // remove all trailing space in each field
+        for (var i = 0; i
+    < lineCSV.length; i++) {
+            lineCSV[i] = lineCSV[i].replace(/\s*$/g, "");
+        }
+
+        lineCSV[lineCSV.length - 1] = lineCSV[lineCSV.length - 1].replace(/^\s*|\s*$/g, "");
+        var fstart = -1;
+
+        for (var i = 0; i < lineCSV.length; i++) {
+            if (lineCSV[i].match(/"$/)) {
+                if (fstart >= 0) {
+                    for (var j = fstart + 1; j <= i; j++) {
+                        lineCSV[fstart] = lineCSV[fstart] + "," + lineCSV[j];
+                        lineCSV[j] = "-DELETED-";
+                    }
+                    fstart = -1;
+                }
+            }
+            fstart = (lineCSV[i].match(/^"/)) ? i : fstart;
+        }
+
+        var j = 0;
+
+        for (var i = 0; i
+    < lineCSV.length; i++) {
+            if (lineCSV[i] != "-DELETED-") {
+                CSV[j] = lineCSV[i];
+                CSV[j] = CSV[j].replace(/^\s*|\s*$/g, "");     // remove leading & trailing space
+                CSV[j] = CSV[j].replace(/^"|"$/g, "");         // remove " on the beginning and end
+                CSV[j] = CSV[j].replace(/""/g, '"');           // replace "" with "
+                j++;
+            }
+        }
+
+        return CSV;
+    }
+</script>

@@ -1,0 +1,219 @@
+﻿@model MVCEventBench.Classes.NailVent
+
+@{
+    ViewBag.Title = "Details";
+    MVCEventBench.Classes.NailVent nv = new MVCEventBench.Classes.NailVent();
+    MVCEventBench.Classes.NailVent nvSimilar0 = new MVCEventBench.Classes.NailVent();
+    MVCEventBench.Classes.NailVent nvSimilar1 = new MVCEventBench.Classes.NailVent();
+    MVCEventBench.Classes.NailVent nvSimilar2 = new MVCEventBench.Classes.NailVent();
+    int simCount = ViewBag.simCount;
+    nv = ViewBag.nvDetails;
+    nvSimilar0 = ViewBag.nvSimilar0;
+    nvSimilar1 = ViewBag.nvSimilar1;
+    nvSimilar2 = ViewBag.nvSimilar2;
+
+    float mapLat = ViewBag.mapLat;
+    float mapLong = ViewBag.mapLong;
+    string mapAddress = ViewBag.mapAddress;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Details</h2>
+
+<fieldset>
+    <legend>NailVent</legend>
+    <!-- To Do: Add a "more events" button to cycle through more similar events at the bottom row  -->
+    <table style = "width:100%;">         <!-- Main structure of the details page  -->
+        <tr>        <!-- The first row includes 3 cols : when/where info, partialview of NV, and contact info -->
+            <td colspan="2">
+                <table style = "width:100%; text-align:center;">
+                    <tr>
+                        <td>
+                            <div class="display-label">Address: </div>                                
+                        </td>
+                        <td>
+                            <div class="display-field">@Model.Address</div>
+                        </td>
+                    </tr>                    
+                    <tr>
+                        <td>
+                            <div class="display-label">State: </div>    
+                        </td>
+                        <td>
+                            <div class="display-field">@Model.State</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="display-label">City: </div>    
+                        </td>
+                        <td>
+                            <div class="display-field">@Model.City</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="display-label">Location: </div>
+                        </td>
+                        <td>
+                            <div class="display-field">@Model.Location</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="display-label">Date: </div>   
+                        </td>
+                        <td>
+                            <div class="display-field">@String.Format("{0:g}", Model.DateStart)</div>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+            <td colspan="2" style="text-align:center;">
+                @Html.Partial("NailVentPartialView", nv)
+            </td>
+            <td colspan="2">
+                <table style = "width:100%; text-align:center;">
+                    <tr>
+                        <td>
+                            <div class="display-label">Sponsor: </div>    
+                        </td>
+                        <td>
+                            <div class="display-field">@Model.Sponsor</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="display-label">Contact: </div>    
+                        </td>
+                        <td>
+                            <div class="display-field">@Model.Contact</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="display-label">PhoneNumber:</div>    
+                        </td>
+                        <td>
+                            <div class="display-field">@Model.PhoneNumber</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <div class="display-label">Webpage: </div>   
+                        </td>
+                        <td>
+                            <div class="display-field">@Model.Webpage</div>
+                        </td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+        <tr>        <!-- This row will show description and details, have it split into 6 cols for formatting purposes  -->
+            <td style = "width:16%">
+            </td>
+            <td style = "width:16%">                
+            </td>
+            <td style = "width:17%">
+                <div class="display-label">Description</div>
+                <textarea rows = "9" cols = "25" readonly="readonly">@Model.Description</textarea>                
+            </td>
+            <td style = "width:17%">
+                <div class="display-label">Details</div>
+                <textarea rows = "9" cols = "25" readonly="readonly">@Model.Details</textarea>
+            </td>
+            <td colspan ="2">
+            <div id="mapCanvas" style="width:340px; height:181px;"></div>            
+            <script type="text/javascript">
+                DrawMap(@mapLat,@mapLong);
+                Geocode("@mapAddress");
+            </script>
+            </td>            
+        </tr>
+        <tr>
+            <td colspan="6" style="font-size:large; text-align:center;">Similar Events</td>
+        </tr>
+        <tr>        <!-- Last row will consist of cols to show different events that are similar to this event (based on tags) in the area  -->
+        @{
+            if (ViewBag.simCount >= 3)
+            {
+                <td colspan="2" style="text-align:center;">
+                @Html.Partial("NailVentPartialView", nvSimilar0)
+                </td>
+                <td colspan="2" style="text-align:center;">
+                @Html.Partial("NailVentPartialView", nvSimilar1)
+                </td>
+                <td colspan="2" style="text-align:center;">
+                @Html.Partial("NailVentPartialView", nvSimilar2)
+                </td>
+            }
+            else if (ViewBag.simCount == 2)
+            {
+                <td colspan="2" style="text-align:center;">
+                @Html.Partial("NailVentPartialView", nvSimilar0)
+            </td>
+            <td colspan="2" style="text-align:center;">
+                @Html.Partial("NailVentPartialView", nvSimilar1)
+            </td>            
+            }
+
+            else if (ViewBag.simCount == 1)
+            {
+                <td colspan="2" style="text-align:center;">
+                @Html.Partial("NailVentPartialView", nvSimilar0)
+                </td>                                   
+            }
+            else
+            {
+                
+            }
+            
+        }
+
+        </tr>
+    </table>
+
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { /* id=Model.PrimaryKey */ }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("div.BackgroundImage").css("margin", "auto");
+        $("div#divDateTime").css("margin", "auto");
+                       
+    });
+
+    function getGeoCode() {
+        $.ajax({
+            type: "Post",
+            datatype: 'json',
+            data: "address=1600+Amphitheatre+Parkway,+Mountain+View,+CA&sensor=false" ,
+            url: "http://maps.googleapis.com/maps/api/geocode/",
+            success: function (data) {
+
+                var strData = data.results.geometry.location;
+                var arrayData = new Array();
+
+                arrayData = parseLineCSV(strData);
+
+//                for (var i = 0; i < arryCities.length; i++) {
+//                    var opt = document.createElement("option");
+//                    document.getElementById("strEventCity").options.add(opt);
+
+//                    opt.text = arryCities[i];
+
+                var lat = arrayData[0];
+                var long = arrayData[1];
+
+
+                }
+
+            });
+    }
+
+                                       
+</script>
+

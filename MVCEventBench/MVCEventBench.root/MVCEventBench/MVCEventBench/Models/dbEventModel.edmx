@@ -1,0 +1,136 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="EventsModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <EntityContainer Name="EventsModelStoreContainer">
+          <EntitySet Name="Event" EntityType="EventsModel.Store.Event" store:Type="Tables" Schema="dbo" />
+        </EntityContainer>
+        <EntityType Name="Event">
+          <Key>
+            <PropertyRef Name="gEventGUID" />
+          </Key>
+          <Property Name="gEventGUID" Type="uniqueidentifier" Nullable="false" />
+          <Property Name="strEventName" Type="varchar" MaxLength="50" />
+          <Property Name="dEventDate" Type="datetime" />
+          <Property Name="imgEvent" Type="image" />
+          <Property Name="strEventTime" Type="varchar" MaxLength="50" />
+          <Property Name="strEventAddress" Type="varchar" MaxLength="50" />
+          <Property Name="bIsDeleted" Type="bit" Nullable="false" />
+          <Property Name="strTitleFontFamily" Type="varchar" MaxLength="50" />
+          <Property Name="strAddressFontFamily" Type="varchar" MaxLength="50" />
+          <Property Name="strDateFontFamily" Type="varchar" MaxLength="50" />
+          <Property Name="strTimeFontFamily" Type="varchar" MaxLength="50" />
+          <Property Name="strAddressFontSize" Type="varchar" MaxLength="50" />
+          <Property Name="strDateFontSize" Type="varchar" MaxLength="50" />
+          <Property Name="strTimeFontSize" Type="varchar" MaxLength="50" />
+          <Property Name="strDescription" Type="text" />
+          <Property Name="strDetails" Type="text" />
+          <Property Name="strSponsor" Type="varchar" MaxLength="50" />
+          <Property Name="strContact" Type="varchar" MaxLength="50" />
+          <Property Name="strWebpage" Type="varchar" MaxLength="50" />
+          <Property Name="strPhoneNumber" Type="varchar" MaxLength="50" />
+          <Property Name="strTag1" Type="varchar" MaxLength="50" />
+          <Property Name="strTag2" Type="varchar" MaxLength="50" />
+          <Property Name="strTag3" Type="varchar" MaxLength="50" />
+          <Property Name="strTag4" Type="varchar" MaxLength="50" />
+          <Property Name="strTag5" Type="varchar" MaxLength="50" />
+        </EntityType>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="EventsModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+        <EntityContainer Name="dbEventModel" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Event" EntityType="EventsModel.Event" />
+        </EntityContainer>
+        <EntityType Name="Event">
+          <Key>
+            <PropertyRef Name="gEventGUID" />
+          </Key>
+          <Property Name="gEventGUID" Type="Guid" Nullable="false" />
+          <Property Name="strEventName" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="dEventDate" Type="DateTime" />
+          <Property Name="imgEvent" Type="Binary" MaxLength="Max" FixedLength="false" />
+          <Property Name="strEventTime" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="strEventAddress" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="bIsDeleted" Type="Boolean" Nullable="false" />
+          <Property Name="strTitleFontFamily" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="strAddressFontFamily" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="strDateFontFamily" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="strTimeFontFamily" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="strAddressFontSize" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="strDateFontSize" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Name="strTimeFontSize" Type="String" MaxLength="50" Unicode="false" FixedLength="false" />
+          <Property Type="String" Name="strDescription" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="strDetails" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="strSponsor" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="strContact" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="strWebpage" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="strPhoneNumber" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="strTag1" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="strTag2" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="strTag3" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="strTag4" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="String" Name="strTag5" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="EventsModelStoreContainer" CdmEntityContainer="dbEventModel">
+          <EntitySetMapping Name="Event"><EntityTypeMapping TypeName="EventsModel.Event"><MappingFragment StoreEntitySet="Event">
+            <ScalarProperty Name="strTag5" ColumnName="strTag5" />
+                <ScalarProperty Name="strTag4" ColumnName="strTag4" />
+                <ScalarProperty Name="strTag3" ColumnName="strTag3" />
+                <ScalarProperty Name="strTag2" ColumnName="strTag2" />
+                <ScalarProperty Name="strTag1" ColumnName="strTag1" />
+                <ScalarProperty Name="strPhoneNumber" ColumnName="strPhoneNumber" />
+                <ScalarProperty Name="strWebpage" ColumnName="strWebpage" />
+                <ScalarProperty Name="strContact" ColumnName="strContact" />
+                <ScalarProperty Name="strSponsor" ColumnName="strSponsor" />
+                <ScalarProperty Name="strDetails" ColumnName="strDetails" />
+                <ScalarProperty Name="strDescription" ColumnName="strDescription" />
+                <ScalarProperty Name="gEventGUID" ColumnName="gEventGUID" />
+            <ScalarProperty Name="strEventName" ColumnName="strEventName" />
+            <ScalarProperty Name="dEventDate" ColumnName="dEventDate" />
+            <ScalarProperty Name="imgEvent" ColumnName="imgEvent" />
+            <ScalarProperty Name="strEventTime" ColumnName="strEventTime" />
+            <ScalarProperty Name="strEventAddress" ColumnName="strEventAddress" />
+            <ScalarProperty Name="bIsDeleted" ColumnName="bIsDeleted" />
+            <ScalarProperty Name="strTitleFontFamily" ColumnName="strTitleFontFamily" />
+            <ScalarProperty Name="strAddressFontFamily" ColumnName="strAddressFontFamily" />
+            <ScalarProperty Name="strDateFontFamily" ColumnName="strDateFontFamily" />
+            <ScalarProperty Name="strTimeFontFamily" ColumnName="strTimeFontFamily" />
+            <ScalarProperty Name="strAddressFontSize" ColumnName="strAddressFontSize" />
+            <ScalarProperty Name="strDateFontSize" ColumnName="strDateFontSize" />
+            <ScalarProperty Name="strTimeFontSize" ColumnName="strTimeFontSize" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="False" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams>
+      <Diagram Name="dbEventModel">
+        <EntityTypeShape EntityType="EventsModel.Event" Width="1.5" PointX="0.75" PointY="0.75" Height="3.2357796223958335" IsExpanded="true" />
+      </Diagram>
+    </Diagrams>
+  </Designer>
+</edmx:Edmx>

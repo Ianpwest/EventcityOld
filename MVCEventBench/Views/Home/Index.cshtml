@@ -1,0 +1,165 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+	
+
+<div>
+    @*@Html.Label("State: ")
+    @Html.DropDownList("cbStates", (SelectList)ViewBag.stateList, new { onchange = "getCitiesList()" })
+    @Html.Label("City: ")
+    @Html.DropDownList("cbCities", (SelectList)ViewBag.citiesList)*@
+    Date: <input type="text" id="datePicker"/>
+    @Html.DropDownList("cbTags", (SelectList)ViewBag.tagsList)
+    @Html.DropDownList("cbRadius", (SelectList)ViewBag.radiusList)
+    <button id="btnFilter" onclick="Filter()">Filter</button>
+</div>
+
+<div id="divMainEvents">
+    @Html.Partial("NailVentContainerPartialView")
+</div>
+
+
+<script type="text/jscript">
+
+    function Filter() {
+        if (navigator.geolocation) // check if browser support this feature or not
+        {
+            navigator.geolocation.getCurrentPosition(function (position) {
+                var lat = position.coords.latitude;
+                var lng = position.coords.longitude;
+                var strFirstCity = "";
+                var strFirstState = "";
+                var strDate = null;
+                var strTag = null;
+                var strRadius = null;
+
+                if (document.getElementById("cbCities")) {
+                    strFirstCity = document.getElementById("cbCities").value.toString();
+                    strFirstState = document.getElementById("cbStates").value.toString();
+                }
+                strTag = document.getElementById("cbTags").value.toString();
+                strDate = document.getElementById("datePicker").value.toString();
+                strRadius = document.getElementById("cbRadius").value.toString();
+
+                $.get("/Home/FilteredPartialContainer", { strCityLat: lat, strCityLong: lng, strCity: strFirstCity, strState: strFirstState, strTag: strTag, strDate: strDate, strRadius: strRadius }, function (data) {
+                    //This is the success function we should be removing or adding the new events. 
+                    $("#divMainEvents").html(data);
+                    //Populate the comboboxes on the page with the defined state and city that the user is in
+                });
+
+            });
+        }
+    }
+
+
+    $(document).ready(function () {
+        if (navigator.geolocation) // check if browser support this feature or not
+        {
+            navigator.geolocation.getCurrentPosition(function (position) {
+                var lat = position.coords.latitude;
+                var lng = position.coords.longitude;
+                var strFirstCity = "";
+                var strFirstState = ""; 
+                var strDate = null;
+                var strTag = "";
+
+//                strFirstCity = document.getElementById("cbCities").value.toString();
+//                strFirstState = document.getElementById("cbStates").value.toString();
+                strTag = document.getElementById("cbTags").value.toString();
+                strDate = document.getElementById("datePicker").value.toString();
+                strRadius = document.getElementById("cbRadius").value.toString();
+                        
+                $.get("/Home/FilteredPartialContainer", { strCityLat: lat, strCityLong: lng, strCity: strFirstCity, strState: strFirstState, strTag: strTag, strDate: strDate , strRadius: strRadius}, function (data) {
+                    //This is the success function we should be removing or adding the new events. 
+                    $("#divMainEvents").html(data);
+                });
+
+            });
+        }
+
+        $("#datePicker").datepicker();
+
+    });
+
+
+
+    function getCitiesList() {
+
+        $.ajax({
+            type: "Post",
+            datatype: 'json',
+            data: "strState=" + document.getElementById("cbStates").value,
+            url: "/Home/GetCitiesCB",
+            success: function (data) {
+                //Clear the current contents of the cb
+                ClearCB("cbCities");
+
+                var strCity = data.message;
+                var arryCities = new Array();
+
+                arryCities = parseLineCSV(strCity);
+                for (var i = 0; i < arryCities.length; i++) {
+                    var opt = document.createElement("option");
+                    document.getElementById("cbCities").options.add(opt);
+                    opt.text = arryCities[i];
+                }
+
+            }
+        });
+    }
+
+    function ClearCB(cbCities) {
+        document.getElementById(cbCities).options.length = 0;
+    }
+
+
+    function parseLineCSV(lineCSV) {
+        // parse csv line by line into array
+        var CSV = new Array();
+
+        lineCSV = lineCSV.replace(/,/g, " ,");
+
+        lineCSV = lineCSV.split(/,/g);
+
+        // This is continuing of 'split' issue in IE
+        // remove all trailing space in each field
+        for (var i = 0; i
+    < lineCSV.length; i++) {
+            lineCSV[i] = lineCSV[i].replace(/\s*$/g, "");
+        }
+
+        lineCSV[lineCSV.length - 1] = lineCSV[lineCSV.length - 1].replace(/^\s*|\s*$/g, "");
+        var fstart = -1;
+
+        for (var i = 0; i < lineCSV.length; i++) {
+            if (lineCSV[i].match(/"$/)) {
+                if (fstart >= 0) {
+                    for (var j = fstart + 1; j <= i; j++) {
+                        lineCSV[fstart] = lineCSV[fstart] + "," + lineCSV[j];
+                        lineCSV[j] = "-DELETED-";
+                    }
+                    fstart = -1;
+                }
+            }
+            fstart = (lineCSV[i].match(/^"/)) ? i : fstart;
+        }
+
+        var j = 0;
+
+        for (var i = 0; i
+    < lineCSV.length; i++) {
+            if (lineCSV[i] != "-DELETED-") {
+                CSV[j] = lineCSV[i];
+                CSV[j] = CSV[j].replace(/^\s*|\s*$/g, "");     // remove leading & trailing space
+                CSV[j] = CSV[j].replace(/^"|"$/g, "");         // remove " on the beginning and end
+                CSV[j] = CSV[j].replace(/""/g, '"');           // replace "" with "
+                j++;
+            }
+        }
+
+        return CSV;
+    }
+
+    
+
+</script>

@@ -1,0 +1,73 @@
+﻿@model MVCEventBench.Classes.NailVent
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<fieldset>
+    <legend>NailVent</legend>
+
+    <div class="display-label">EventGUID</div>
+    <div class="display-field">@Model.EventGUID</div>
+
+    <div class="display-label">PhoneNumber</div>
+    <div class="display-field">@Model.PhoneNumber</div>
+
+    <div class="display-label">Webpage</div>
+    <div class="display-field">@Model.Webpage</div>
+
+    <div class="display-label">Contact</div>
+    <div class="display-field">@Model.Contact</div>
+
+    <div class="display-label">Sponsor</div>
+    <div class="display-field">@Model.Sponsor</div>
+
+    <div class="display-label">Details</div>
+    <div class="display-field">@Model.Details</div>
+
+    <div class="display-label">Description</div>
+    <div class="display-field">@Model.Description</div>
+
+    <div class="display-label">Name</div>
+    <div class="display-field">@Model.Name</div>
+
+    <div class="display-label">Address</div>
+    <div class="display-field">@Model.Address</div>
+
+    <div class="display-label">Time</div>
+    <div class="display-field">@Model.Time</div>
+
+    <div class="display-label">ImgPath</div>
+    <div class="display-field">@Model.ImgPath</div>
+
+    <div class="display-label">Date</div>
+    <div class="display-field">@String.Format("{0:g}", Model.Date)</div>
+
+    <div class="display-label">TitleFontFamily</div>
+    <div class="display-field">@Model.TitleFontFamily</div>
+
+    <div class="display-label">AddressFontFamily</div>
+    <div class="display-field">@Model.AddressFontFamily</div>
+
+    <div class="display-label">DateFontFamily</div>
+    <div class="display-field">@Model.DateFontFamily</div>
+
+    <div class="display-label">TimeFontFamily</div>
+    <div class="display-field">@Model.TimeFontFamily</div>
+
+    <div class="display-label">TimeFontSize</div>
+    <div class="display-field">@Model.TimeFontSize</div>
+
+    <div class="display-label">DateFontSize</div>
+    <div class="display-field">@Model.DateFontSize</div>
+
+    <div class="display-label">AddressFontSize</div>
+    <div class="display-field">@Model.AddressFontSize</div>
+</fieldset>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { /* id=Model.PrimaryKey */ }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
+
