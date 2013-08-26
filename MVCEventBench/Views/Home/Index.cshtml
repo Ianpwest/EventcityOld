@@ -59,17 +59,17 @@
                 var lat = position.coords.latitude;
                 var lng = position.coords.longitude;
                 var strFirstCity = "";
-                var strFirstState = ""; 
+                var strFirstState = "";
                 var strDate = null;
                 var strTag = "";
 
-//                strFirstCity = document.getElementById("cbCities").value.toString();
-//                strFirstState = document.getElementById("cbStates").value.toString();
+                //                strFirstCity = document.getElementById("cbCities").value.toString();
+                //                strFirstState = document.getElementById("cbStates").value.toString();
                 strTag = document.getElementById("cbTags").value.toString();
                 strDate = document.getElementById("datePicker").value.toString();
                 strRadius = document.getElementById("cbRadius").value.toString();
-                        
-                $.get("/Home/FilteredPartialContainer", { strCityLat: lat, strCityLong: lng, strCity: strFirstCity, strState: strFirstState, strTag: strTag, strDate: strDate , strRadius: strRadius}, function (data) {
+
+                $.get("/Home/FilteredPartialContainer", { strCityLat: lat, strCityLong: lng, strCity: strFirstCity, strState: strFirstState, strTag: strTag, strDate: strDate, strRadius: strRadius }, function (data) {
                     //This is the success function we should be removing or adding the new events. 
                     $("#divMainEvents").html(data);
                 });
